@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <MapModule name="First MapModule"/>
+    <MapModule name="Second MapModule 2"/>
   );
 }
 
