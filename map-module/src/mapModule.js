@@ -3,6 +3,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
+import 'ol/ol.css';
 
 
 class MapModule extends Component {
@@ -13,12 +14,9 @@ class MapModule extends Component {
       target: null,
       layers: [
         new TileLayer({
-          extent: [-13884991, 2870341, -7455066, 6338219],
           source: new TileWMS({
-            url: 'http://localhost/MapService/wms.axd/vmap0',
-            params: {'LAYERS': 'Land', 'TILED': true},
-            // Countries have transparency, so do not fade tiles:
-            transition: 0
+            url: 'http://localhost/MapService/wms.axd/vmap0geonames',
+            params: {'LAYERS': ['Land','Coastlines','Bounds','Water','Cities','CityPolygons','CityNames','LargeCities','Geonames'], 'TILED': true},
           })
         })
       ],
@@ -34,7 +32,7 @@ class MapModule extends Component {
   }
 
   render()  {
-    return <div id="mapContainer" style={{ width: "100%", height: "360px" }}></div>
+    return <div id="mapContainer" style={{ width: "100%", height: "100%" }}></div>
   }
 }
 
