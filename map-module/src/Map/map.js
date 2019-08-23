@@ -3,11 +3,11 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
-import MapSettings from './mapSettings';
+import MapSettings from './settings';
 import 'ol/ol.css';
 
 
-class MapModule extends Component {
+class Map extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ class MapModule extends Component {
   }
 }
 
-export default MapModule;
+export default Map;
 
 
 
