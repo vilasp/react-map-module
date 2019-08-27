@@ -8,7 +8,6 @@ let  mapSettings = {
                 }
             }
         ],
-        scaleBar : false
 };
 
 export default mapSettings;
