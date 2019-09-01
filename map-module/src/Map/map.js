@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Map from 'ol/Map';
+import OlMap from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
@@ -11,7 +11,7 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
-    this.map = new Map({
+    this.map = new OlMap({
       target: null,
       layers: [
         new TileLayer({
@@ -20,7 +20,7 @@ class Map extends Component {
       ],
       view: new View({
         center: [0, 0],
-        zoom: 2
+        zoom: 1
       })
     });
   }
