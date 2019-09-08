@@ -2,7 +2,7 @@ export const ogcTypes = {
     "WMS" : "WMS"
 }
 
-let  mapSettings = {
+let mapSettings = {
         layers : [
             // WMS Tiled
             {

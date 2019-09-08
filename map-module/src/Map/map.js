@@ -12,12 +12,12 @@ import 'ol/ol.css';
 
 class Map extends Component<{}>  {
 
-let map: Object = {};
+  map: OlMap = null;
 
- createMapLayerFromMetadata(layerMetadata: Object): TileImage{
+  createMapLayerFromMetadata(layerMetadata: Object): TileImage{
 
     // WMS
-    switch(layerMetadata.type)
+    switch(layerMetadata.type: ogcTypes)
     {
       case ogcTypes.WMS:
         return new TileWMS(layerMetadata) 
