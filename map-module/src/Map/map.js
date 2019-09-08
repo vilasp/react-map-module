@@ -6,33 +6,39 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import TileImage from 'ol/source/TileImage';
-import {MapSettings, ogcTypes} from './settings';
+import MapSettings, {OgcTypes} from './settings';
+import { withSnackbar } from 'notistack';
 import 'ol/ol.css';
 
+type Props = {
+  enqueueSnackbar: any
+}
 
-class Map extends Component<{}>  {
+class Map extends Component<Props>  {
 
   map: OlMap = null;
 
   createMapLayerFromMetadata(layerMetadata: Object): TileImage{
 
-    // WMS
-    switch(layerMetadata.type: ogcTypes)
+    switch(layerMetadata.type)
     {
-      case ogcTypes.WMS:
-        return new TileWMS(layerMetadata) 
+      case OgcTypes.WMS:
+        return new TileWMS((({ url, params }) => ({url , params}))(layerMetadata));
+      default:
+          this.props.enqueueSnackbar(`Failed to load data for service ${layerMetadata.url}`, { 
+            variant: 'error',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'center',
+            },
+          });
     }
-    return 4;
+
+    return null;
   }
 
-  getMapsFromSettings(){
-
-    var layers = [];
-    var settingsLayers = MapSettings.layers;
-
-    var mapLayer = this.createMapLayerFromMetadata(7);
-
-
+  getTileLayersFromSettings(): Array<TileImage>{
+    return MapSettings.layers.map( layer => new TileLayer({ source : this.createMapLayerFromMetadata(layer)}))
   }
 
   constructor(props: Object) {
@@ -40,11 +46,7 @@ class Map extends Component<{}>  {
 
     this.map = new OlMap({
       target: null,
-      layers: [
-        new TileLayer({
-          source: new TileWMS(MapSettings.layers[0])
-        })
-      ],
+      layers: this.getTileLayersFromSettings(),
       view: new View({
         center: [0, 0],
         zoom: 1
@@ -61,7 +63,7 @@ class Map extends Component<{}>  {
   }
 }
 
-export default Map;
+export default withSnackbar(Map);
 
 
 
