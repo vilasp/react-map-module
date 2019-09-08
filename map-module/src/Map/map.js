@@ -1,14 +1,41 @@
+// @flow
+
 import React, {Component} from 'react';
 import OlMap from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
-import MapSettings from './settings';
+import TileImage from 'ol/source/TileImage';
+import {MapSettings, ogcTypes} from './settings';
 import 'ol/ol.css';
 
 
-class Map extends Component {
-  constructor(props) {
+class Map extends Component<{}>  {
+
+let map: Object = {};
+
+ createMapLayerFromMetadata(layerMetadata: Object): TileImage{
+
+    // WMS
+    switch(layerMetadata.type)
+    {
+      case ogcTypes.WMS:
+        return new TileWMS(layerMetadata) 
+    }
+    return 4;
+  }
+
+  getMapsFromSettings(){
+
+    var layers = [];
+    var settingsLayers = MapSettings.layers;
+
+    var mapLayer = this.createMapLayerFromMetadata(7);
+
+
+  }
+
+  constructor(props: Object) {
     super(props);
 
     this.map = new OlMap({
@@ -30,7 +57,7 @@ class Map extends Component {
   }
 
   render()  {
-    return <div id="mapContainer" style={{ width: "100%", height: "100%" }}></div>
+    return <div id="mapContainer"></div>
   }
 }
 
